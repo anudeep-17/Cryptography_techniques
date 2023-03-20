@@ -330,25 +330,13 @@ static byte[] bitgetter(byte[] temp, int index)
   char type = optionaltype.length > 0 ? optionaltype[0]:'E';
   byte[] EncryptedIV = new byte[16];
   
-  if(type == 'C')
+ if(type == 'O')
   {
-	  System.out.println(" ------------------");
-	  System.out.println("selected mode : CBC");
-	  System.out.println("");
-  }
-  else if(type == 'O')
-  {
-	  System.out.println(" ------------------");
-	  System.out.println("selected mode : OFB");
-	  System.out.println("");
+//	  System.out.println(" ------------------");
+//	  System.out.println("selected mode : OFB");
+//	  System.out.println("");
 	  EncryptedIV = IV_generator();
-	  System.out.println("IV vector chosen: "+ Arrays.toString(EncryptedIV));
-  }
-  else
-  {
-	  System.out.println(" ------------------");
-	  System.out.println("selected mode : ECB");
-	  System.out.println("");
+//	  System.out.println("IV vector chosen: "+ Arrays.toString(EncryptedIV));
   }
   
   int lenght=0;
@@ -376,7 +364,7 @@ static byte[] bitgetter(byte[] temp, int index)
 		   if(Arrays.equals(tmp, new byte[tmp.length]))
 		   {
 			   byte[] IV_generator = IV_generator();
-			   System.out.println("IV vector chosen: "+ Arrays.toString(IV_generator));
+//			   System.out.println("IV vector chosen: "+ Arrays.toString(IV_generator));
 			   bloc = xor_func(bitgetter(IV_generator, 0), bloc);   
 		   }
 		   else
