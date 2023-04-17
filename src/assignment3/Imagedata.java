@@ -1,18 +1,25 @@
 package assignment3;
 
+import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 public class Imagedata 
 {
-	int[] all_pixels;
-	byte[] bytes;
-	byte[] header;
-	byte[] nonheader;
+	static int[] all_pixels;
+	static byte[] bytes;
+	static byte[] header;
+	static byte[] nonheader;
 	
 	Imagedata(String Path) throws IOException
 	{
@@ -20,15 +27,17 @@ public class Imagedata
 		BufferedImage original = imagereader(f);
 		
 		all_pixels = getpixels(original);
-		bytes = getbytes(getpixels(original));
-		header = getheader(getbytes(getpixels(original)));
-		nonheader = nonheaderbytes(getbytes(getpixels(original)));
+		bytes = getbytes(new FileInputStream(f));
+		header = getheader(getbytes(new FileInputStream(f)));
+		nonheader = nonheaderbytes(getbytes(new FileInputStream(f)));
 		
-//		SSS.imagepreview(original);
+//		
+//		
+////	SSS.imagepreview(original);
 		System.out.println("total pixels: "+ getpixels(original).length);
-		System.out.println("total bytes: "+ getbytes(getpixels(original)).length);
-		System.out.println("total header bytes: "+ getheader(getbytes(getpixels(original))).length);
-		System.out.println("total non-header bytes: "+nonheaderbytes(getbytes(getpixels(original))).length);
+		System.out.println("total bytes: "+ getbytes(new FileInputStream(f)).length);
+		System.out.println("total header bytes: "+ getheader(getbytes(new FileInputStream(f))).length);
+		System.out.println("total non-header bytes: "+nonheaderbytes(getbytes(new FileInputStream(f))).length);
 		
 	}
 
@@ -45,15 +54,11 @@ public class Imagedata
 		return image.getRGB(0,0,image.getWidth(),image.getHeight(), null, 0, image.getWidth());
 	}
 	
-	public static byte[] getbytes(int[] pixels)
+	public static byte[] getbytes(FileInputStream image) throws IOException
 	{
-		byte[] imageData = new byte[pixels.length * 3];
-		for (int i = 0; i < pixels.length; i++) {
-		    int pixel = pixels[i];
-		    imageData[i * 3] = (byte) ((pixel >> 16) & 0xff); // red value
-		    imageData[i * 3 + 1] = (byte) ((pixel >> 8) & 0xff); // green value
-		    imageData[i * 3 + 2] = (byte) (pixel & 0xff); // blue value
-		}
+		BufferedInputStream input = new BufferedInputStream(image);
+		byte[] imageData = new byte[input.available()];
+		input.read(imageData);
 		return imageData;
 	}
 	
@@ -67,18 +72,43 @@ public class Imagedata
 		return Arrays.copyOfRange(allbytes, 54, allbytes.length);
 	}
 	
+
+	public static void imagepreview(BufferedImage image)
+	{
+		ImageIcon icon=new ImageIcon(image);
+        JFrame frame=new JFrame();
+        frame.setLayout(new FlowLayout());
+        frame.setSize(200,300);
+        JLabel lbl=new JLabel();
+        lbl.setIcon(icon);
+        frame.add(lbl);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+	
 	
 	public static void main(String[] args) throws IOException
 	{
-		File f = new File("C:\\Users\\Owner\\Downloads\\kite-4922348__340.bmp");
+		File f = new File("C:\\Users\\Owner\\Downloads\\check.bmp");
 		BufferedImage original = imagereader(f);
 		
 //		SSS.imagepreview(original);
-		System.out.println("total pixels: "+ getpixels(original).length);
-		System.out.println("total bytes: "+ getbytes(getpixels(original)).length);
-		System.out.println("total header bytes: "+ getheader(getbytes(getpixels(original))).length);
-		System.out.println("total non-header bytes: "+nonheaderbytes(getbytes(getpixels(original))).length);
 		
+//		System.out.println("total bytes: "+ getbytes(getpixels(original)).length);
+//		System.out.println("total header bytes: "+ getheader(getbytes(getpixels(original))).length);
+//		System.out.println("total non-header bytes: "+nonheaderbytes(getbytes(getpixels(original))).length);
+//		
+//		Imagedata imagedata = new Imagedata("C:\\Users\\Owner\\Downloads\\kite-4922348__340.bmp");
+//		
+//		
+//		byte[] share = new byte[nonheader.length];
+//		
+//		System.arraycopy(Imagedata.header, 0, share, 0, 53);
+//		System.arraycopy(nonheader, 0, share, 54, nonheader.length);
+//		ByteArrayInputStream in1 = new ByteArrayInputStream(share);
+//		BufferedImage share1 = ImageIO.read(in1);
+//		System.out.println(share1);
+//		SSS.imagepreview(share1);
 	}
 
 }
