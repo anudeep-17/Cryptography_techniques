@@ -1,8 +1,10 @@
 package assignment3;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
@@ -62,16 +64,29 @@ public class Shares
 		sharer();
 		headadder();
 		
-		ByteArrayInputStream in1 = new ByteArrayInputStream(share[4]);
-		
+		ByteArrayInputStream in1 = new ByteArrayInputStream(share[0]);
 		System.out.println(in1.available());
 		BufferedImage share1 = ImageIO.read(in1);
 		System.out.println(share1);
-//		SSS.imagepreview(share1);
+		SSS.imagepreview(share1);
 		
-		File outputfile = new File("C:\\Users\\Owner\\OneDrive\\eclipse\\Cryptography_assignment1\\src\\share5.bmp");
-		ImageIO.write(share1, "bmp", outputfile);
+//		File outputfile = new File("C:\\Users\\Owner\\OneDrive\\eclipse\\Cryptography_assignment1\\src\\share5.bmp");
+//		ImageIO.write(share1, "bmp", outputfile);
 		
+		BufferedInputStream a = new BufferedInputStream(new FileInputStream("C:\\Users\\Owner\\OneDrive\\eclipse\\Cryptography_assignment1\\src\\share1.bmp"));
+//		System.out.println(a.available());
+//		BufferedImage share2 = ImageIO.read(a);
+//		SSS.imagepreview(share2);
+		
+		BufferedInputStream b = new BufferedInputStream(new FileInputStream("C:\\Users\\Owner\\OneDrive\\eclipse\\Cryptography_assignment1\\src\\share2.bmp"));
+//		System.out.println(a.available());
+//		BufferedImage share3 = ImageIO.read(b);
+//		SSS.imagepreview(share3);
+		
+		
+		
+		
+	
 	}
 	
 }

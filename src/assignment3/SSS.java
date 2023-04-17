@@ -29,7 +29,7 @@ public class SSS
 		System.out.println("SSS 2 shares broken into 5 shares");
 		File f = new File(Path);
 		BufferedImage i = imagereader(f);	
-		
+		imagepreview(i);
 		System.out.println();
 		
 		headofimage = imageheader_reader(new FileInputStream(Path));
