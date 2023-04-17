@@ -7,6 +7,8 @@ import java.util.Arrays;
 
 public class textwritter 
 {
+	// ---------------------used to write the output to a file
+	
 	public static void resultwritter(byte[] ECB, Double IC_ECB,  byte[] CBC, Double IC_CBC, byte[] OFB, Double IC_OFB, String key) throws IOException
 	{
 		FileWriter fw = new FileWriter("C:\\Users\\Owner\\OneDrive\\eclipse\\Cryptography_assignment1\\src\\assignment2\\Result.txt",  false);

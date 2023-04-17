@@ -238,22 +238,22 @@ protected static byte[][] w;
  }
 
  
+ //added
+ // generates a IV vector for the CBC and OFB
  static byte[] IV_generator()
-	{
-		Random rand = new Random();
-		
+	{		
 		byte[] temp = new byte[16];
 		int upperbound = 25;
 		
 		for(int i = 0; i< 16; i++)
 		{
-			temp[i] = (byte) (rand.nextInt(upperbound) & (0xff));
-			
+			temp[i] = (byte) (i);
 		}
 		
 		return temp;
 	}
 	
+// retreives 16 bits from a given idex, just accesory method
 static byte[] bitgetter(byte[] temp, int index)
 	{
 		byte[] returner = new byte[16];
@@ -327,7 +327,7 @@ static byte[] bitgetter(byte[] temp, int index)
   Nk = key.length/4;
   Nr = Nk + 6;
   
-  char type = optionaltype.length > 0 ? optionaltype[0]:'E';
+  char type = optionaltype.length > 0 ? optionaltype[0]:'E'; // takes a optional parameter and check is tis E if ECB and C if CBC and O if OFB
   byte[] EncryptedIV = new byte[16];
   
  if(type == 'O')
@@ -359,7 +359,7 @@ static byte[] bitgetter(byte[] temp, int index)
   for (i = 0; i < in.length + lenght; i++) {
    if (i > 0 && i % 16 == 0) {
 	   
-	   if(type == 'C')
+	   if(type == 'C') // if C will xor with a IV for the first and there on with the previous cipher text.
 	   {
 		   if(Arrays.equals(tmp, new byte[tmp.length]))
 		   {
@@ -373,7 +373,7 @@ static byte[] bitgetter(byte[] temp, int index)
 		   }
 	   }
 	   
-	   if(type == 'O')
+	   if(type == 'O') // if O encrypts the IV and xors with plain text
 	   {
 		   EncryptedIV = encryptBloc(EncryptedIV);
 		   bloc = xor_func(EncryptedIV, bloc); 
@@ -396,13 +396,13 @@ static byte[] bitgetter(byte[] temp, int index)
   
   if(bloc.length == 16){
 	  
-	  if(type == 'C')
+	  if(type == 'C')// if C will xor with a IV for the first and there on with the previous cipher text.
 	   {
 		   bloc = xor_func(bitgetter(tmp, i-16), bloc);
 		   bloc = encryptBloc(bloc);
 		   System.arraycopy(bloc, 0, tmp, i - 16, bloc.length);
 	   }
-	  else if(type == 'O')
+	  else if(type == 'O')// if O encrypts the IV and xors with plain text
 	   {
 		   EncryptedIV = encryptBloc(EncryptedIV);
 		   bloc = xor_func(EncryptedIV, bloc); 

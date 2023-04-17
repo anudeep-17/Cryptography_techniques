@@ -12,6 +12,7 @@ public class question1 extends AES
 {
 	public static String key = "anudeep";
 	
+	//method that runs ECB
 	public static byte[] ECB(String filename) throws IOException
 	{
 		
@@ -20,9 +21,9 @@ public class question1 extends AES
 		byte[] ciphertext = encrypt(in, key.getBytes());
 		
 		return ciphertext;
-		
 	}
 	
+	//method that runs CBC
 	public static byte[] CBC(String filename) throws IOException
 	{
 		
@@ -33,6 +34,7 @@ public class question1 extends AES
 		return ciphertext;
 	}
 	
+	//method that runs OFB
 	public static byte[] OFB(String filename) throws IOException
 	{
 		File plaintextFile = new File(filename);
@@ -42,7 +44,7 @@ public class question1 extends AES
 		return ciphertext;
 	}
 	
-	
+	//method to find teh frequency and calculate the IC of the cipher text
 	public static Double index_of_coincidence(byte[] ciphertext)
 	{
 		int length = ciphertext.length;
@@ -67,6 +69,7 @@ public class question1 extends AES
 		return IC;
 	}
 	
+	//calls all of the methods
 	public static void encryptionperformer(String file) throws IOException
 	{
 		file = new File(file).getAbsolutePath();
@@ -82,9 +85,11 @@ public class question1 extends AES
 		textwritter.resultwritter(ciphertext_ECB, IC_ECB, ciphertext_CBC, IC_CBC, ciphertext_OFB, IC_OFB, key);	
 	
 	}
+	
 	public static void main(String[]args) throws IOException
 	{
 		
+		//UI for this
 		JLabel prompt = new JLabel("please select the duplication percentage", JLabel.CENTER);
 		
 		JPanel panel = new JPanel();
