@@ -14,46 +14,53 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+// the class that extracts the image data like pixels, bytes of the image, header fo the image , non header bytes of the image. 
+
 public class Imagedata 
 {
-	static int[] all_pixels;
+	//global variables for the usage of info retreival of image. 
+	static int[] all_pixels; 
 	static byte[] bytes;
 	static byte[] header;
 	static byte[] nonheader;
+	static int width = 0;
+	static int heigth = 0;
 	
+	//constructor to load the above information
 	Imagedata(String Path) throws IOException
 	{
 		File f = new File(Path);
 		BufferedImage original = imagereader(f);
+		width = original.getWidth();
+		heigth = original.getHeight();
 		
 		all_pixels = getpixels(original);
 		bytes = getbytes(new FileInputStream(f));
 		header = getheader(getbytes(new FileInputStream(f)));
 		nonheader = nonheaderbytes(getbytes(new FileInputStream(f)));
 		
-//		
-//		
-////	SSS.imagepreview(original);
-		System.out.println("total pixels: "+ getpixels(original).length);
-		System.out.println("total bytes: "+ getbytes(new FileInputStream(f)).length);
-		System.out.println("total header bytes: "+ getheader(getbytes(new FileInputStream(f))).length);
-		System.out.println("total non-header bytes: "+nonheaderbytes(getbytes(new FileInputStream(f))).length);
+//		System.out.println("total pixels: "+ getpixels(original).length);
+//		System.out.println("total bytes: "+ getbytes(new FileInputStream(f)).length);
+//		System.out.println("total header bytes: "+ getheader(getbytes(new FileInputStream(f))).length);
+//		System.out.println("total non-header bytes: "+nonheaderbytes(getbytes(new FileInputStream(f))).length);
 		
 	}
 
-	
+	//reads a path and returns a buffered image.
 	public static BufferedImage imagereader(File path) throws IOException
 	{
 		BufferedImage image = ImageIO.read(path);
 		return image;
 	}
 	
+	//reads buffered image and gives pixels of the image.
 	public static int[] getpixels(BufferedImage image) 
 	{
 //		System.out.println("width of image: "+image.getWidth() + " height of image:" + image.getHeight());
 		return image.getRGB(0,0,image.getWidth(),image.getHeight(), null, 0, image.getWidth());
 	}
 	
+	//reads bytes of the image by the file path
 	public static byte[] getbytes(FileInputStream image) throws IOException
 	{
 		BufferedInputStream input = new BufferedInputStream(image);
@@ -62,17 +69,20 @@ public class Imagedata
 		return imageData;
 	}
 	
+	//reads header of the image
 	public static byte[] getheader(byte[] allbytes)
 	{
 		return Arrays.copyOfRange(allbytes, 0, 54);
 	}
 	
+	//reads nonheader bytes or bytes from 54th position.
 	public static byte[] nonheaderbytes(byte[] allbytes)
 	{
 		return Arrays.copyOfRange(allbytes, 54, allbytes.length);
 	}
 	
 
+	//used to see the image prview.
 	public static void imagepreview(BufferedImage image)
 	{
 		ImageIcon icon=new ImageIcon(image);
@@ -86,29 +96,5 @@ public class Imagedata
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
-	
-	public static void main(String[] args) throws IOException
-	{
-		File f = new File("C:\\Users\\Owner\\Downloads\\check.bmp");
-		BufferedImage original = imagereader(f);
-		
-//		SSS.imagepreview(original);
-		
-//		System.out.println("total bytes: "+ getbytes(getpixels(original)).length);
-//		System.out.println("total header bytes: "+ getheader(getbytes(getpixels(original))).length);
-//		System.out.println("total non-header bytes: "+nonheaderbytes(getbytes(getpixels(original))).length);
-//		
-//		Imagedata imagedata = new Imagedata("C:\\Users\\Owner\\Downloads\\kite-4922348__340.bmp");
-//		
-//		
-//		byte[] share = new byte[nonheader.length];
-//		
-//		System.arraycopy(Imagedata.header, 0, share, 0, 53);
-//		System.arraycopy(nonheader, 0, share, 54, nonheader.length);
-//		ByteArrayInputStream in1 = new ByteArrayInputStream(share);
-//		BufferedImage share1 = ImageIO.read(in1);
-//		System.out.println(share1);
-//		SSS.imagepreview(share1);
-	}
 
 }
