@@ -5,8 +5,11 @@ public class driver
 	
 	public static void main(String[] args)
 	{
-		int temp = Hashfunctions.hashfunction1(10);
-//		boolean check = hashproperties.onewayproperty(temp,10, "Hash1");
-//		System.out.println(check);
+		Testing tests = new Testing();
+		
+		//running the tests of the all properties on both functions.
+		tests.onewayproperty();
+		tests.weakpropertytest();
+		tests.Strongpropertytest();
 	}
 }

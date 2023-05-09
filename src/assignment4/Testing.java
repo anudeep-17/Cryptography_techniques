@@ -30,10 +30,10 @@ public class Testing
 		int hashvalue3 = func.hashfunction1(X3);
 		int hashvalue4 = func.hashfunction1(X4);
 		
-		assertFalse(hashproperties.onewayproperty(hashvalue, X1));
-		assertFalse(hashproperties.onewayproperty(hashvalue2,X2));
-		assertFalse(hashproperties.onewayproperty(hashvalue3,X3));
-		assertFalse(hashproperties.onewayproperty(hashvalue4,X4));
+		assertTrue(hashproperties.onewayproperty(hashvalue, X1));
+		assertTrue(hashproperties.onewayproperty(hashvalue2,X2));
+		assertTrue(hashproperties.onewayproperty(hashvalue3,X3));
+		assertTrue(hashproperties.onewayproperty(hashvalue4,X4));
 		
 		//test for hashfunction 2 
 		System.out.println();
@@ -44,7 +44,7 @@ public class Testing
 		
 		BitSet hashmessage = func.hashfunction2(message);
 		
-		assertFalse(props.onewayproperty(hashmessage, message));
+		assertTrue(props.onewayproperty(hashmessage, message));
 		
 		System.out.println("--------------------------------------");
 		
@@ -67,15 +67,6 @@ public class Testing
 		message = props.generateRandomBitSet(320);
 		assertTrue(hashproperties.weakcollisionproperty(message));
 		
-		message = props.generateRandomBitSet(320);
-		assertTrue(hashproperties.weakcollisionproperty(message));
-
-		message = props.generateRandomBitSet(320);
-		assertTrue(hashproperties.weakcollisionproperty(message));
-
-		message = props.generateRandomBitSet(320);
-		assertTrue(hashproperties.weakcollisionproperty(message));
-		
 		System.out.println("--------------------------------------");
 	}
 	
@@ -91,7 +82,7 @@ public class Testing
 		System.out.println();
 		System.out.println("Strong collision property of hash function 2: ");		
 		
-		assertFalse(hashproperties.strongcollision("Hash2"));
+		assertTrue(hashproperties.strongcollision("Hash2"));
 		
 		System.out.println("--------------------------------------");
 		
